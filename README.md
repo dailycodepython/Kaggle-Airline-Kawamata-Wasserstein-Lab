@@ -61,13 +61,15 @@ To capture semantic clusters of survey questions without introducing data leakag
 
 ## 🏗️ Modeling Architecture
 
+
+
 ### Cross-Validation & Optimization Framework
 
 ```mermaid
 graph LR
     A[Enhanced Features] --> B[Stratified 5-Fold Split]
     
-    subgraph Cross-Validation Loop (Fold 1-5)
+    subgraph "Cross-Validation Loop (Folds 1-5)"
         B --> C1[LightGBM Classifier]
         B --> C2[XGBoost Classifier]
         B --> C3[CatBoost Classifier]
@@ -87,8 +89,11 @@ graph LR
     G --> H[Final Blend: ~80% CatBoost / ~20% LGBM / ~0% XGB]
     H --> I[master_submission_blend.csv]
     
+    style E fill:#d9534f,stroke:#333,stroke-width:2px,color:#fff
     style F fill:#5bc0de,stroke:#333,stroke-width:2px,color:#fff
     style H fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
+```
+
 ```
 
 
