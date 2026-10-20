@@ -9,6 +9,41 @@ Instead of traditional blind feature brute-forcing or overfitting to the Public 
 
 ## 🔬 Core Innovations & Feature Engineering
 
+### Feature Engineering Data Flow
+
+```mermaid
+graph TD
+    A[Raw Tabular Flight Data] --> B{Feature Extraction Pipelines}
+    
+    %% Вассерштейн
+    B -->|Survey Ratings 0-5| C[Compute Matrix Probabilities]
+    C --> D[Generate Passenger CDF]
+    D --> E[1D Wasserstein Distance to Ideal Profile]
+    
+    %% Физика Каваматы
+    B -->|Flight & Arrival Delays| F[Lorentz Non-linear Compression]
+    F --> G[Relativistic Delay Factor & Momentum]
+    
+    %% Ожидания
+    B -->|Class vs Cabin Comfort| H[Quantum Expectation Dissonance]
+    
+    %% Байес
+    B -->|Semantic Feature Groups| I[5-Fold Out-of-Fold Matrix]
+    I --> J[Multinomial Naive Bayes Probabilities]
+    
+    %% Выход
+    E --> K[Enhanced Feature Space: 42 Dimensions]
+    G --> K
+    H --> K
+    J --> K
+    K --> L[To Triple Ensemble Stack]
+    
+    style E fill:#d9534f,stroke:#333,stroke-width:2px,color:#fff
+    style G fill:#f0ad4e,stroke:#333,stroke-width:2px,color:#fff
+    style J fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
+```
+
+
 ### 1. Optimal Transport: 1D Wasserstein Distance
 Traditional distance metrics (like Kullback-Leibler divergence) treat survey ratings (0 to 5) as independent categorical bins, completely ignoring the ordered geometry of human satisfaction. 
 In this lab, we compute the **1-Dimensional Wasserstein Distance (Earth Mover's Distance)** to measure the physical "work" required to transform an individual passenger's rating distribution into an idealized "perfectly satisfied" profile.
@@ -25,6 +60,37 @@ To capture semantic clusters of survey questions without introducing data leakag
 ---
 
 ## 🏗️ Modeling Architecture
+
+### Cross-Validation & Optimization Framework
+
+```mermaid
+graph LR
+    A[Enhanced Features] --> B[Stratified 5-Fold Split]
+    
+    subgraph Cross-Validation Loop (Fold 1-5)
+        B --> C1[LightGBM Classifier]
+        B --> C2[XGBoost Classifier]
+        B --> C3[CatBoost Classifier]
+        
+        C1 --> D1[OOF Preds LGBM]
+        C2 --> D2[OOF Preds XGB]
+        C3 --> D3[OOF Preds CatBoost]
+    end
+    
+    D1 --> E[Robust OOF Matrix]
+    D2 --> E
+    D3 --> E
+    
+    E --> F[Regularized Hill Climbing / Bill Climb]
+    F -->|Simplex Constraints & Delta Gain > 1e-6| G[Optimal Weights]
+    
+    G --> H[Final Blend: ~80% CatBoost / ~20% LGBM / ~0% XGB]
+    H --> I[master_submission_blend.csv]
+    
+    style F fill:#5bc0de,stroke:#333,stroke-width:2px,color:#fff
+    style H fill:#5cb85c,stroke:#333,stroke-width:2px,color:#fff
+```
+
 
 The pipeline implements a robust **Triple Ensemble Stack** trained via `StratifiedKFold` (5 Splits) to maximize generalizing capability:
 * **LightGBM** (Fast histogram-based learning)
